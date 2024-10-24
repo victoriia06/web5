@@ -37,6 +37,30 @@
                 <h2 class="text-center mb-4">Выполнение задания 5 по Web</h2>
                 <div class="calculator mt-4">
                     <h2 class="text-center mb-4">Калькулятор стоимости заказа</h2>
+
+                    <script>
+                       document.addEventListener('DOMContentLoaded', function() {
+    const quantityInput = document.getElementById('quantity');
+    const productSelect = document.getElementById('product');
+    const calculateButton = document.getElementById('calculate');
+    const priceInput = document.getElementById('price');
+
+    calculateButton.addEventListener('click', function() {
+        const quantity = parseInt(quantityInput.value);
+        const price = parseInt(productSelect.value);
+
+        if (isNaN(quantity) || quantity <= 0) {
+            alert('Пожалуйста, введите корректное количество товара (целое положительное число).');
+            return;
+        }
+
+        const totalPrice = quantity * price;
+        priceInput.value = totalPrice;
+    });
+});
+ 
+                    </script>
+                    
                     <form id="order-form" action="#" method="POST" class="needs-validation" novalidate>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
