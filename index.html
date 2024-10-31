@@ -38,29 +38,6 @@
                 <div class="calculator mt-4">
                     <h2 class="text-center mb-4">Калькулятор стоимости заказа</h2>
 
-                    <script>
-                       document.addEventListener('DOMContentLoaded', function() {
-    const quantityInput = document.getElementById('quantity');
-    const productSelect = document.getElementById('product');
-    const calculateButton = document.getElementById('calculate');
-    const priceInput = document.getElementById('price');
-
-    calculateButton.addEventListener('click', function() {
-        const quantity = parseInt(quantityInput.value);
-        const price = parseInt(productSelect.value);
-
-        if (isNaN(quantity) || quantity <= 0) {
-            alert('Пожалуйста, введите корректное количество товара (целое положительное число).');
-            return;
-        }
-
-        const totalPrice = quantity * price;
-        priceInput.value = totalPrice;
-    });
-});
- 
-                    </script>
-                    
                     <form id="order-form" action="#" method="POST" class="needs-validation" novalidate>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
@@ -78,6 +55,10 @@
                                 <input type="text" class="form-control" id="quantity" placeholder="Введите количество" required>
                                 <div class="invalid-feedback">Пожалуйста, введите корректное количество.</div>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="price">Цена:</label>
+                                <input type="text" class="form-control" id="price" placeholder="Цена" readonly>
+                            </div>
                         </div>
                         <button type="button" class="btn btn-primary" id="calculate-btn">Подсчитать стоимость</button>
                     </form>
@@ -92,8 +73,36 @@
                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <script src="./script.js"></script>
-                <script src="./calculator.js" defer></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const calculateBtn = document.getElementById('calculate-btn');
+                        const resultDiv = document.getElementById('result');
+                        const totalCostSpan = document.getElementById('total-cost');
+                        const productSelect = document.getElementById('product-select');
+                        const quantityInput = document.getElementById('quantity');
+                        const priceInput = document.getElementById('price');
 
+                        calculateBtn.addEventListener('click', function(event) {
+                            event.preventDefault();
+
+                            const quantity = parseInt(quantityInput.value);
+                            const price = parseInt(productSelect.value);
+
+                            if (isNaN(quantity) || quantity <= 0) {
+                                alert('Пожалуйста, введите корректное количество товара (целое положительное число).');
+                                return;
+                            }
+
+                            const totalPrice = quantity * price;
+                            priceInput.value = totalPrice;
+
+                            totalCostSpan.textContent = totalPrice;
+                            resultDiv.style.display = 'block';
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
