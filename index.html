@@ -3,50 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
-    <title>Задание 5 WEB</title>
+    <title>Калькулятор товаров</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-    <div id="result"></div>
-    <form>
-        <input name="field1" type="text">
-        <input name="field2" type="text">
-        <select name="select1">
-            <option value="v1">Вариант 1</option>
-            <option value="v2">Вариант 2</option>
-        </select>
-        <button id="button1" onclick="return click1();">OK</button>
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1>Калькулятор стоимости товара</h1>
+        </div>
+        <div class="calculator-container">
+            <form>
+                <input name="field" type="text" placeholder="Введите количество товара (больше 0)" required class="form-control mb-2">
+                <select name="product" class="form-control mb-2">
+                    <option value="100">Товар 1 (100 руб.)</option>
+                    <option value="200">Товар 2 (200 руб.)</option>
+                    <option value="300">Товар 3 (300 руб.)</option>
+                    <option value="400">Товар 4 (400 руб.)</option>
+                    <option value="500">Товар 5 (500 руб.)</option>
+                </select>
+                <button id="button1" type="submit" onclick="return calculateTotal();" class="btn" style="background-color: #b99dcf; color: white;">OK</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
 
-    </form>
-
-
-    <footer class="bg-primary text-white text-center py-3">
+    <footer class="text-white text-center py-3 mt-4" style="background-color: #b99dcf;">
         <p>(c) Виктория Кваша</p>
     </footer>
 
     <script>
+        function calculateTotal() {
+            let field = document.getElementsByName("field")[0].value;
+            let productSelect = document.getElementsByName("product")[0];
+            let selectedPrice = productSelect.value;
 
-        function click1() {
-            let f1 = document.getElementsByName("field1");
-            let f2 = document.getElementsByName("field2");
+            if (isNaN(field) || field <= 0) {
+                alert("Количество товара должно быть больше 0");
+                return false;
+            }
 
-            let r = document.getElementById("result");
-            r.innerHTML = f1[0].value * f2[0].value;
-            let s = document.getElementsByName("select1");
-            console.log(s[0].value);
+            let total = field * selectedPrice;
+            let result = document.getElementById("result");
+            result.innerHTML = `Итоговая сумма: ${total} руб.`;
             return false;
         }
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="./script.js"></script>
-    <script src="./calculator.js" defer></script>
-
 </body>
 </html>
